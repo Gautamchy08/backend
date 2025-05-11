@@ -23,7 +23,6 @@ module.exports.registerUser = async (req, res, next) => {
     if (!hashedPassword) {
       return res.status(422).json({ message: 'Password hashing failed' })
     }
-    console.log(username, registrationNo, hashedPassword)
     // sending the user data to the userService to create a new user
     const user = await userService.createUser({
       username: username,
