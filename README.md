@@ -283,7 +283,7 @@ curl -X POST http://localhost:3000/login \
   ### 3. Logout User
 
   - **Endpoint:** `/logout`
-  - **Method:** POST
+  - **Method:** GET
   - **Description:** Logs out the currently authenticated user by invalidating their session or token.
 
   #### Request Headers
