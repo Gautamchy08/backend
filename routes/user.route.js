@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/user.controller')
+const authMiddleware = require('../middleware/auth.middleware')
 const { body } = require('express-validator')
 
 router.post(
@@ -33,4 +34,7 @@ router.post(
   ],
   userController.loginUser
 )
+router.get('/logout', authMiddleware.authUser, userController.logoutUser)
+
+router.get('/tokenRefreshing', userController.tokenRefreshing)
 module.exports = router

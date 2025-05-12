@@ -21,12 +21,22 @@ const userSchema = new mongoose.Schema({
     minlength: [6, 'Password must be at least 6 characters']
   }
 })
-userSchema.methods.generateAuthToken = () => {
+userSchema.methods.generateAccessToken = () => {
   const token = jwt.sign(
     { _id: this._id, username: this.username },
-    process.env.JWT_SECRET,
+    process.env.JWT_ACCESS_SECRET,
     {
-      expiresIn: '1h'
+      expiresIn: '15m'
+    }
+  )
+  return token
+}
+userSchema.methods.generateRefreshToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, username: this.username },
+    process.env.JWT_REFRESH_SECRET,
+    {
+      expiresIn: '28d'
     }
   )
   return token
