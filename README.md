@@ -279,3 +279,59 @@ curl -X POST http://localhost:3000/login \
     }
   }
   ```
+
+  ### 3. Logout User
+
+  - **Endpoint:** `/logout`
+  - **Method:** POST
+  - **Description:** Logs out the currently authenticated user by invalidating their session or token.
+
+  #### Request Headers
+
+  | Name          | Type   | Description                  |
+  | ------------- | ------ | ---------------------------- |
+  | Authorization | String | User's access token (Bearer) |
+
+  #### Responses
+
+  - **200 OK**
+
+    ```json
+    {
+      "message": "Successfully logged out."
+    }
+    ```
+
+  - **401 Unauthorized**
+
+    ```json
+    {
+      "error": "Invalid or missing authentication token."
+    }
+    ```
+
+  - **500 Internal Server Error**
+
+    ```json
+    {
+      "error": "An error occurred while processing the logout request."
+    }
+    ```
+
+  #### Example
+
+  **Request**
+
+  /\*\*
+
+  - Handles the process of refreshing an expired or soon-to-expire authentication token.
+  -
+  - This function typically sends a request to the authentication server using a refresh token,
+  - retrieves a new access token, and updates the application's authentication state accordingly.
+  - It ensures that the user remains authenticated without requiring them to log in again.
+  -
+  - Returns a promise that resolves when the token has been successfully refreshed,
+  - or rejects if the refresh process fails (e.g., if the refresh token is invalid or expired).
+  -
+  - @returns {Promise<void>} A promise that resolves when the token refresh is complete.
+    \*/
