@@ -92,8 +92,6 @@ curl -X POST http://localhost:3000/users/register \
 - @apiDescription
   Authenticates a user and returns a JWT token upon successful login.
 
-### 2. Login User
-
 - **Endpoint:** `/login`
 - **Method:** POST
 - **Description:** Authenticate an existing user and obtain a JWT token.
@@ -202,4 +200,82 @@ curl -X POST http://localhost:3000/login \
 -     {
 -       "error": "Invalid username or password"
 -     }
-  \*/
+
+  ### 2. Login User
+
+  - **Endpoint:** `/users/login`
+  - **Method:** POST
+  - **Description:** Authenticate an existing user and obtain a JWT token.
+
+  #### Request Body
+
+  ```json
+  {
+    "username": "string", // Required. The user's unique username or email.
+    "password": "string" // Required. The user's password.
+  }
+  ```
+
+  #### Responses
+
+  - **200 OK**
+
+    ```json
+    {
+      "token": "jwt_token_string",
+      "user": {
+        "id": "string",
+        "username": "string",
+        "email": "string"
+      }
+    }
+    ```
+
+  - **400 Bad Request**
+
+    ```json
+    {
+      "error": "Missing or invalid credentials."
+    }
+    ```
+
+  - **401 Unauthorized**
+
+    ```json
+    {
+      "error": "Invalid username or password."
+    }
+    ```
+
+  - **500 Internal Server Error**
+    ```json
+    {
+      "error": "An unexpected error occurred while logging in."
+    }
+    ```
+
+  #### Example
+
+  **Request**
+
+  ```bash
+  curl -X POST http://localhost:3000/users/login \
+      -H "Content-Type: application/json" \
+      -d '{
+          "username": "johndoe",
+          "password": "mypassword"
+      }'
+  ```
+
+  **Success Response**
+
+  ```json
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+      "id": "12345",
+      "username": "johndoe",
+      "email": "johndoe@example.com"
+    }
+  }
+  ```
