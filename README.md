@@ -82,3 +82,124 @@ curl -X POST http://localhost:3000/users/register \
   }
 }
 ```
+
+/\*\*
+
+- @api {post} /login User Login
+- @apiName LoginUser
+- @apiGroup Authentication
+-
+- @apiDescription
+  Authenticates a user and returns a JWT token upon successful login.
+
+### 2. Login User
+
+- **Endpoint:** `/login`
+- **Method:** POST
+- **Description:** Authenticate an existing user and obtain a JWT token.
+
+#### Request Body
+
+```json
+{
+  "username": "string", // Required. The user's unique username or email.
+  "password": "string" // Required. The user's password.
+}
+```
+
+#### Responses
+
+- **200 OK**
+
+  ```json
+  {
+    "token": "jwt_token_string",
+    "user": {
+      "id": "string",
+      "username": "string",
+      "email": "string"
+    }
+  }
+  ```
+
+- **400 Bad Request**
+
+  ```json
+  {
+    "error": "Missing or invalid credentials."
+  }
+  ```
+
+- **401 Unauthorized**
+
+  ```json
+  {
+    "error": "Invalid username or password."
+  }
+  ```
+
+- **500 Internal Server Error**
+  ```json
+  {
+    "error": "An unexpected error occurred while logging in."
+  }
+  ```
+
+#### Example
+
+**Request**
+
+```bash
+curl -X POST http://localhost:3000/login \
+    -H "Content-Type: application/json" \
+    -d '{
+        "username": "johndoe",
+        "password": "mypassword"
+    }'
+```
+
+**Success Response**
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "12345",
+    "username": "johndoe",
+    "email": "johndoe@example.com"
+  }
+}
+```
+
+- @apiBody {String} password The user's password.
+-
+- @apiSuccess {String} token JWT authentication token for accessing protected routes.
+- @apiSuccess {Object} user Basic user information (e.g., id, username, email).
+-
+- @apiError (400) {String} error Missing or invalid credentials.
+- @apiError (401) {String} error Authentication failed due to incorrect username or password.
+-
+- @apiExample {json} Request Example:
+-     POST /login
+-     {
+-       "username": "johndoe",
+-       "password": "mypassword"
+-     }
+-
+- @apiSuccessExample {json} Success Response:
+-     HTTP/1.1 200 OK
+-     {
+-       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+-       "user": {
+-         "id": "12345",
+-         "username": "johndoe",
+-         "email": "johndoe@example.com"
+-       }
+-     }
+-
+- @apiErrorExample {json} Error Response:
+-     HTTP/1.1 401 Unauthorized
+-     {
+-       "error": "Invalid username or password"
+-     }
+  \*/

@@ -36,11 +36,11 @@ userSchema.statics.hashPassword = async password => {
   return await bcrypt.hash(password, 10)
 }
 
-userSchema.methods.comparePassword = async candidatePassword => {
-  if (!this.password) {
+userSchema.methods.comparePassword = async function (password) {
+  if (!password || !this.password) {
     throw new Error('Password not set')
   }
-  return await bcrypt.compare(candidatePassword, this.password)
+  return await bcrypt.compare(password, this.password)
 }
 
 const userModel = mongoose.model('User', userSchema)
